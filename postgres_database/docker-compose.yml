@@ -1,0 +1,31 @@
+version: '3'
+services:
+    pgadmin-compose:
+        image: dpage/pgadmin4
+        environment:
+            PGADMIN_DEFAULT_EMAIL: ${PGADMIN_EMAIL}
+            PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_PASSWORD}
+        ports:
+            - "16543:80"
+        depends_on:
+            - postgres-collect_data
+
+    postgres-collect_data:
+        image: postgres:15.1-alpine
+        healthcheck:
+            test: [ "CMD", "pg_isready", "-q", "-d", "postgres", "-U", "test" ]
+            timeout: 45s
+            interval: 10s
+            retries: 10
+        restart: always
+        environment:
+            - POSTGRES_USER=${POSTGRES_USER}
+            - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+            - POSTGRES_DB=${POSTGRES_DB}
+            - PGDATA=/var/lib/postgresql/data_collect_data/
+        volumes:
+            - ./pgdata_collect_data:/var/lib/postgresql/data_collect_data/
+        ports:
+            - "5434:5432"
+        expose:
+            - 5434
