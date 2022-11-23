@@ -12,7 +12,7 @@ http://45.137.67.39:8080
 User: Guest
 Password : Guest
 
-Ссылка на Дашборд: https://bit.ly/metabase_link
+Ссылка на Дашборд: http://bit.ly/3Vc4jZ8
 
 Сбор данных осуществляется с помощью библиотек Selenium и beautifulsoup4 c сайта Авито по г. Москва.
 
